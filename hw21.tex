@@ -1,0 +1,202 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage[ruled, lined, linesnumbered, commentsnumbered, longend]{algorithm2e}
+\usepackage{xcolor}
+\newtheorem{definition}{Definition}
+
+%New colors defined below
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+  backgroundcolor=\color{backcolour}, commentstyle=\color{codegreen},
+  keywordstyle=\color{magenta},
+  numberstyle=\tiny\color{codegray},
+  stringstyle=\color{codepurple},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,         
+  breaklines=true,                 
+  captionpos=b,                    
+  keepspaces=true,                 
+  numbers=left,                    
+  numbersep=5pt,                  
+  showspaces=false,                
+  showstringspaces=false,
+  showtabs=false,                  
+  tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\title{Homework 21 - MATH 3440-1}
+\author{Max Bolger}
+\date{November 2021}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction} This is a LaTeX writing assignment focusing on proofs and \textit{mathematical induction}. It was assigned by Professor Ken Takata and is due on 11/15/21.
+
+\begin{definition}
+Mathematical induction is a mathematical proof technique. It is essentially used to prove that a statement $P(n)$ holds for every natural number $n = 0, 1, 2, 3, ...$ (to be further explained in section 3.1).
+\end{definition}
+
+\section{Write up in LaTeX a proof regarding the sum $\sum_{i=1}^{n} i = 1 + 2 + 3 + 4 + ... + n$ and find a closed form that requires at most $O(1)$ arithmetic operations (constant time).}
+
+\begin{definition}
+An algorithm is said to be O(1) (or constant time) if the value of T(n) is bounded by a value that does not depend on the size of the input. Examples of this may include accessing the index of an item in a list or array.
+\end{definition}
+
+\subsection{Closed Form}
+A closed form of this equation that requires at most $O(1)$ arithmetic operations is:
+
+\begin{equation}
+\frac{n(n+1)}{2}
+\end{equation}
+
+\subsection{Proof}
+Let us assign the following equation to $S$.
+
+\begin{equation}
+1 + 2 + 3 + ... + n = S
+\end{equation}
+\newline
+and add the following equation to it (this equation is the previous equation reversed, starting with $n$ and adding $(n-1)$ until we reach $1$).
+
+\begin{equation}
+n + (n-1) + (n-2) + ... + 1 = S
+\end{equation}
+\newline
+This step can be better visualized if we stack the components of the addition
+\begin{center}
+\begin{tabular}{ccccccc}
+  & 1 +&2 +& 3 +& ... & + n = S\\
++ & n +&(n-1) +&(n-2) +& ... & + 1 = S\\
+\hline
+  & (n+1) +&(n+1) +&(n+1) +& ... & + (n+1) = 2S\\
+\end{tabular}
+\end{center}
+\newline
+\newline
+\newline
+We then get a sum of 
+
+
+\begin{equation}
+(n+1) + (n+1) + (n+1) ... + (n+1) = 2S
+\end{equation}
+\newline
+This is equivalent to $n$ amounts of $(n+1)$, so we can rewrite this as
+
+\begin{equation}
+n(n+1) = 2S
+\end{equation}
+\newline
+then divide both sides by 2 to isolate $S$
+
+\begin{equation}
+\frac{n(n+1)}{2} = S
+\end{equation}
+\newline
+and we arrive at our closed form.
+
+
+\section{Now prove your formula using mathematical induction.}
+
+\subsection{Intro}
+The principle of mathematical induction is to prove that $P(n)$ is true for all positive integers, $n$, where $P(n)$ is a propositional function. Two steps must be completed in mathematical induction:
+\newline
+\newline
+- \textbf{Basis Step (or atomic step, base/atomic case):} Verify that $P(1)$ is true.
+\newline
+\newline
+- \textbf{Inductive Step (or inductive case):} Show that the conditional statement $P(k) \rightarrow P(k+1)$ is true for all positive integers $k$.
+
+\subsection{Base/Atomic Case}
+In section 2 we proved that the closed form for the following
+
+\begin{equation}
+\sum_{i=1}^{n} i = 1 + 2 + 3 + 4 + ... + n
+\end{equation}
+\newline
+is equivalent to
+\begin{equation}
+\frac{n(n+1)}{2}
+\end{equation}
+\newline
+This can be written as 
+\begin{equation}
+\sum_{i=1}^{n} i = \frac{n(n+1)}{2}
+\end{equation}
+\newline
+As 3.1 states, the base case must verify that $P(1)$ is true.
+\newline
+\newline
+\begin{equation}
+P(n) \equiv True \textrm{  means } \sum_{i=1}^{n} i = \frac{n(n+1)}{2} = 1
+\end{equation}
+\newline
+\newline
+\begin{equation}
+P(1) \textrm{  means } \sum_{i=1}^{1} i = \frac{1(2)}{2} = 1
+\end{equation}
+\newline
+\newline
+This is true, and our base case is satisfied.
+
+\subsection{Inductive Case}
+Now we must show that the conditional statement $P(k) \rightarrow P(k+1)$ is true for all positive integers $k$.
+\newline
+\newline
+\begin{equation}
+\textrm{Assume  } P(k)\textrm{:   } \sum_{i=1}^{k} i = \frac{k(k+1)}{2}
+\end{equation}
+\newline
+\newline
+\begin{equation}
+\textrm{Show  } P(k+1)\textrm{:   } \sum_{i=1}^{k+1} i = \frac{(k+1)[(k+1)+1]}{2}
+\end{equation}
+\newline
+\newline
+$P(1)$ was true, now we must test the inductive case with $P(k+1)$. We will test $P(1+1)$
+\begin{equation}
+\textrm{Show  } P(1+1)\textrm{:   } \sum_{i=1}^{1+1} i = \frac{(1+1)[(1+1)+1]}{2} = 3
+\end{equation}
+\newline
+\newline
+This proves that closed form for $P(1) \rightarrow P(1+1)$. We can programmatically test this mathematical induction by calculating the equation for more integers to satisfy $P(k+1)$ for $k$ integers.
+
+
+
+\section{Bonus - Code}
+
+\begin{lstlisting}[language=Python, caption = This script tests if the equation and closed form are equal for a range of a given number. A boolean for each iteration is passed to an list. If all booleans in the list are true we know our test has passed.]
+def eqn(n):
+  sum = 0
+  for i in range(1,n+1):
+    sum+=i
+  return sum
+
+def clsd_frm(n):
+  return (n*(n+1)) / 2
+
+def test(n):
+  bool_array = []
+  for i in range(1,n+1):
+    bool_array.append(eqn(i) == clsd_frm(i))
+  return all(bool_array)
+
+>>> test(10000)
+True
+
+ 
+\end{lstlisting}
+
+
+
+\end{document}
