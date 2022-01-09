@@ -1,0 +1,145 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage[ruled, lined, linesnumbered, commentsnumbered, longend]{algorithm2e}
+\usepackage{xcolor}
+\newtheorem{definition}{Definition}
+
+%New colors defined below
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+  backgroundcolor=\color{backcolour}, commentstyle=\color{codegreen},
+  keywordstyle=\color{magenta},
+  numberstyle=\tiny\color{codegray},
+  stringstyle=\color{codepurple},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,         
+  breaklines=true,                 
+  captionpos=b,                    
+  keepspaces=true,                 
+  numbers=left,                    
+  numbersep=5pt,                  
+  showspaces=false,                
+  showstringspaces=false,
+  showtabs=false,                  
+  tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\title{Homework 22 - MATH 3440-1}
+\author{Max Bolger}
+\date{November 2021}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction} This is a LaTeX writing assignment focusing on proofs and \textit{mathematical induction}. It was assigned by Professor Ken Takata and is due on 11/17/21.
+
+\begin{definition}
+Mathematical induction is a mathematical proof technique. It is essentially used to prove that a statement $P(n)$ holds for every natural number $n = 0, 1, 2, 3, ...$ (to be further explained in section 3.1).
+\end{definition}
+
+\section{Prove that $n^2 < 2^n$ for $n > 4$}
+
+\subsection{Intro}
+The principle of mathematical induction is to prove that $P(n)$ is true for all positive integers, $n$, where $P(n)$ is a propositional function. Two steps must be completed in mathematical induction:
+\newline
+\newline
+- \textbf{Basis Step (or atomic step, base/atomic case):} Verify that $P(1)$ is true.
+\newline
+\newline
+- \textbf{Inductive Step (or inductive case):} Show that the conditional statement $P(k) \rightarrow P(k+1)$ is true for all positive integers $k$.
+
+\subsection{Base/Atomic Case}
+Our base case will be $P(5)$ (or $P(4+1)$) since 5 is the first case that is greater than 4 which satisfies the conditions of the problem.
+
+\begin{equation}
+P(n, where \textrm{ } n>4) \equiv True \textrm{  means } n^2 < 2^n
+\end{equation}
+\newline
+\newline
+\begin{equation}
+P(5) \textrm{  means } 5^2 < 2^5 \Longrightarrow 25 < 32
+\end{equation}
+\newline
+\newline
+This is true, and our base case is satisfied.
+
+\subsection{Inductive Case}
+Now we must show that the conditional statement $P(k) \rightarrow P(k+1)$ is true for all positive integers $k$.
+\newline
+\newline
+\begin{equation}
+\textrm{Assume  } P(k, where \textrm{ } k>4)\textrm{:   } k^2 < 2^k
+\end{equation}
+\newline
+\newline
+\begin{equation}
+\textrm{Show  } P(k+1)\textrm{:   } (n+1)^2 < 2^{n+1} \rightarrow n^2 + 2n + 1 < 2 \times 2^n
+\end{equation}
+\newline
+Assuming our integer is greater than 4, we can conclude that
+\begin{equation}
+2^{n+1} = n \times 2^n > 2 \times n^2 > (n+1)^2
+\end{equation}
+\newline
+The left side of the equation is following the induction step by adding one to the base case. As for the right side
+\begin{equation}
+(n-1)^2 \ge 4^2 > 2
+\end{equation}
+\newline
+Since $n \ge 5$, the inequality $(n-1)^2 > 2$ can be expanded using basic algebraic rules
+\begin{equation}
+n^2 - 2n - 1 > 2 
+\end{equation}
+
+\begin{equation}
+n^2 - 2n - 1 > 0
+\end{equation}
+
+\begin{equation}
+2n^2 - 2n - 1 > n^2
+\end{equation}
+
+\begin{equation}
+2n^2 > n^2 + 2n + 1 
+\end{equation}
+\newline
+Which can be expressed as
+\begin{equation}
+2n^2 > (n+1)^2 
+\end{equation}
+\newline
+Which matches the second inequality in equation (5). Thus, we have proved the problem via mathematical induction. We can programmatically test this mathematical induction with the following code.
+
+
+
+\section{Bonus - Code}
+
+\begin{lstlisting}[language=Python, caption = This script tests if $n^2 > 2^n$ for a range of a given number greater than 4. A boolean for each iteration is passed to an list. If all booleans in the list are true we know our test has passed.]
+def proof(n):
+  if n <= 4:
+    print("False. n <= 4 doesn't satisfy this equation")
+
+  else:
+    bool_array = []
+    for i in range(5,n+1):
+      bool_array.append(i**2 < 2**i)
+    return all(bool_array)
+
+>>> proof(10000)
+True
+
+ 
+\end{lstlisting}
+
+
+
+\end{document}
